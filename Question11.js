@@ -106,4 +106,4 @@ function findHighestPaidEmployee(company) {
   console.log(findHighestPaidEmployee(company));
   // Output: { name: "John Doe", salary: 100000 }
   
-    
+     
