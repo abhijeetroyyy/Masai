@@ -1,3 +1,4 @@
+
 const company = {
     name: "Tech Solutions Inc.",
     departments: {
@@ -39,21 +40,58 @@ const company = {
       },
     },
   };
-  
   function extractManagerDetails(company) {
-    const mangers = [];
-    for (const department of company.departments) {
-      const { manager } = department;
-      manager.push({
-        name: manager.name,
-        age: manager.age,
-        position: manager.position,
-        salary: manager.salary
-      })
-      return managers
+    const { departments } = company;
+    const managers = [];
+
+    for (const dept in departments) {
+        const { manager: { name, age, position, salary } } = departments[dept];
+        managers.push({ name, age, position, salary });
     }
-  }
+
+    return managers;
+}
+function calculateAverageSalary(company) {
+    const { departments } = company;
+    let totalSalary = 0;
+    let totalCount = 0;
+
+    for (const dept in departments) {
+        const { manager: { salary: managerSalary }, employees } = departments[dept];
+        totalSalary += managerSalary;
+        totalCount += 1;
+
+        for (const { salary } of employees) {
+            totalSalary += salary;
+            totalCount += 1;
+        }
+    }
+
+    return (totalSalary / totalCount).toFixed(2);
+}
+function findHighestPaidEmployee(company) {
+    const { departments } = company;
+    let highestPaid = { name: '', salary: 0 };
+
+    for (const dept in departments) {
+        const { manager: { name: managerName, salary: managerSalary }, employees } = departments[dept];
+
+        if (managerSalary > highestPaid.salary) {
+            highestPaid = { name: managerName, salary: managerSalary };
+        }
+
+        for (const { name, salary } of employees) {
+            if (salary > highestPaid.salary) {
+                highestPaid = { name, salary };
+            }
+        }
+    }
+
+    return highestPaid;
+}
+
   
+
   console.log(extractManagerDetails(company));
   // Output:
   // [
@@ -68,4 +106,4 @@ const company = {
   console.log(findHighestPaidEmployee(company));
   // Output: { name: "John Doe", salary: 100000 }
   
-  
+    
