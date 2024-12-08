@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './components/Header'
-
+import Navbar from './components/Navbar'
+import { BrowserRouter as Router, Routes,Route } from 'react-router-dom'
 const App = () => {
   return (
-    <>
-    <Header/>
-    </>
+    <Router>
+    <Navbar/>
+    </Router>
   )
 }
 
